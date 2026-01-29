@@ -127,12 +127,7 @@ EventSchema.pre('save', function () {
   if (this.isModified('date') || this.isNew) {
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(this.date)) {
-      // Try to parse and convert to ISO format
-      const parsedDate = new Date(this.date);
-      if (isNaN(parsedDate.getTime())) {
-        throw new Error('Invalid date format. Use YYYY-MM-DD or a valid date string.');
-      }
-      this.date = parsedDate.toISOString().split('T')[0];
+      throw new Error('Invalid date format. Use YYYY-MM-DD.');
     }
   }
 

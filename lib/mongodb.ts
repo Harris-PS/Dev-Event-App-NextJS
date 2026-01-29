@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
  */
 declare global {
   // eslint-disable-next-line no-var
-  var _mongooseCache: {
+  var mongoose: {
     conn: mongoose.Connection | null;
     promise: Promise<mongoose.Connection> | null;
   };
@@ -32,10 +32,10 @@ if (!MONGODB_URI) {
  * In development, Next.js can create multiple connections due to hot reloading
  * This cache prevents creating new connections on every module reload
  */
-let cached = global._mongooseCache;
+let cached = global.mongoose;
 
 if (!cached) {
-  cached = global._mongooseCache = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 /**
